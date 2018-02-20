@@ -1,3 +1,20 @@
+.. ===============LICENSE_START=======================================================
+.. Acumos
+.. ===================================================================================
+.. Copyright (C) 2017-2018 AT&T Intellectual Property & Tech Mahindra. All rights reserved.
+.. ===================================================================================
+.. This Acumos documentation file is distributed by AT&T and Tech Mahindra
+.. under the Creative Commons Attribution 4.0 International License (the "License");
+.. you may not use this file except in compliance with the License.
+.. You may obtain a copy of the License at
+..  
+..      http://creativecommons.org/licenses/by/4.0
+..  
+.. This file is distributed on an "AS IS" BASIS,
+.. WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+.. See the License for the specific language governing permissions and
+.. limitations under the License.
+.. ===============LICENSE_END=========================================================
 =================
 Developer's Guide
 =================
@@ -22,14 +39,14 @@ One of the functions of Operations, Administration, and Management (OA&M) for th
 		All the module should follow Acumos Log Standards.
 
 	1.4 ELK-Stack - Backend Architecture
-		.. image:: _static/elk_stack.png
+		.. image:: images/elk_stack.png
 
 
 2. ELK-Stack User Interface A Tour
 ----------------------------------
 Site admin having access to ELK stack Login to dashboard:
 
-.. image:: _static/acumosSiteAdminUntitled.png
+.. image:: images/acumosSiteAdminUntitled.png
 
 Kibana is an open source analytics and visualization platform designed to work with Elasticsearch. You use Kibana to search, view, and interact with data stored in Elasticsearch indices. You can easily perform advanced data analysis and visualize your data in a variety of charts, tables, and maps.
 Kibana makes it easy to understand large volumes of data. Its simple, browser-based interface enables you to quickly create queries in real time.
@@ -37,4 +54,4 @@ Kibana makes it easy to understand large volumes of data. Its simple, browser-ba
 For more details visit `Kibana User Guide <https://www.elastic.co/guide/en/kibana/current/index.html/>`_.
 
 
-.. image:: _static/loadingKibanaCapture.PNG
+.. image:: images/loadingKibanaCapture.PNG
