@@ -46,10 +46,14 @@ services:
     networks:
       - elk
     depends_on:
-      - logstash	  
+      - logstash
   
 
 networks:
 
   elk:
     driver: bridge
+
+volumes:
+    acumos-logs:
+        external: true
