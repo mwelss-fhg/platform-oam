@@ -39,16 +39,6 @@ services:
     depends_on:
       - elasticsearch
 
-  filebeat:
-    build: filebeat/
-    volumes:
-     - acumos-logs:/filebeat-logs    
-    networks:
-      - elk
-    depends_on:
-      - logstash
-  
-
 networks:
 
   elk:
