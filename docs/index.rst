@@ -15,15 +15,16 @@
 .. See the License for the specific language governing permissions and
 .. limitations under the License.
 .. ===============LICENSE_END=========================================================
-===============================================================================
-Acumos Platform Operations, Administration, and Management (OA&M) Documentation
-===============================================================================
+
+==========================================================
+Platform Operations, Administration, and Management (OA&M)
+==========================================================
 
 .. toctree::
        :maxdepth: 2
 
        release-notes
-       developer-guide       
+       developer-guide
        user-guide
 
-* :ref:`search`
+

@@ -15,14 +15,16 @@
 .. See the License for the specific language governing permissions and
 .. limitations under the License.
 .. ===============LICENSE_END=========================================================
-===================================================================
-Operations, Administration, and Management (OA&M) Developer's Guide
-===================================================================
+
+==========================================================================
+Platform Operations, Administration, and Management (OA&M) Developer Guide
+==========================================================================
 
 
-The OA&M project is for the processes, activities, tools, and standards involved with operating, administering, managing and maintaining the Acumos platform. The project uses Docker, Docker Compose, shell scripts, and third-party tools such as the Kong API and Elastic Stack. 
+The OA&M project is for the processes, activities, tools, and standards involved with operating, administering, managing and maintaining the Acumos platform. The project uses Docker, Docker Compose, shell scripts, and third-party tools such as the Kong API and Elastic Stack.
 
 Jira: `https://jira.acumos.org <https://jira.acumos.org>`_   project name: platform-oam
+
 Gerrit:  git clone https://gerrit.acumos.org/r/platform-oam
 
 
