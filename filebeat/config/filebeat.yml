@@ -45,8 +45,6 @@ filebeat.prospectors:
     - /filebeat-logs/dsce/*.log
     - /filebeat-logs/federated-gateway/*.log
 
-   #registry_file:
-   # - /home/cognitamaster/filebeat/registry
 
   #encoding: utf-16le-bom
   document_type: log
