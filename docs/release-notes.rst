@@ -20,8 +20,13 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 1.1.0, 27 June 2018
+---------------------------
+
+-  Increasing the reload interval for metricbeat
+
 Version 1.0.0, 7 May 2018
-=========================
+-------------------------
 
 - Increase the ES,LS memory size and made it configurable (ACUMOS-669)
 - Added docker volume to persist acumos elasticsearch data (ACUMOS-669)
@@ -29,6 +34,6 @@ Version 1.0.0, 7 May 2018
 - Updated Elastic Stack installation steps
 
 Version 0.1, 15 February 2018
-=============================
+-----------------------------
 
 -  Elastic Stack installation and documentation
