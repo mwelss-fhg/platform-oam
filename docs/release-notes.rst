@@ -20,6 +20,11 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 1.2.0, 15 August 2018
+-----------------------------
+
+-  Updated ELK queries to match with database 1.17 version
+
 Version 1.1.0, 27 June 2018
 ---------------------------
 
