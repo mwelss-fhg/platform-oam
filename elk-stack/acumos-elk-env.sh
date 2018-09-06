@@ -17,7 +17,7 @@
 # limitations under the License.
 # ===============LICENSE_END=========================================================
 #
-# What this is: Environment file for Acumos Kong API installation.
+# What this is: Environment file for ELK installation.
 # Usage:
 # - Intended to be called from docker-compose.yml
 #
