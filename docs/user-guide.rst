@@ -68,30 +68,38 @@ Steps
 
    $ git clone https://gerrit.acumos.org/r/platform-oam
 
-2. Create docker volume namely acumos-esdata
+2. Create docker volume namely acumos-esdata if no volumes created earlier.If acumos-esdata volume already exist on host machine then skip this step.
    
 .. code:: bash
 
    $ docker volume create acumos-esdata
-
-
-3. The docker-compose.yaml file as well as component directories are located in the elk-stack directory. Each component has a Dockerfile. You need to build the docker-compose file if you are using it for the first time or if you have made changed any Dockerfile or the contents of its build directory.
+   
+3. The acumos-elk-env.sh file is the environment file for ELK stack. Update variables ELASTICSEARCH_IMAGE , LOGSTASH_IMAGE , KIBANA_IMAGE with the latest release image.
 
 .. code:: bash
 
    $ cd elk-stack
 
-   $ ./docker-compose-elk.sh build
+   $ vi acumos-elk-env.sh
+   
 
+4. The docker-compose.yml file as well as component directories are located in the elk-stack directory. Edit docker-compose.yml and make changes to these environment variables (ACUMOS_ELK_JDBC_CONNECTION_STRING, ACUMOS_ELK_JDBC_USERNAME, ACUMOS_ELK_JDBC_PASSWORD) to connect to database instance.
 
-4. Builds, (re)creates, starts, and attaches to containers for Elasticsearch, Logstash, Kibana
+.. code:: bash
+
+   $ cd elk-stack
+
+   $ vi docker-compose.yml
+   
+
+5. Starts and attaches to containers for Elasticsearch, Logstash, Kibana
 
 .. code:: bash
 
    $ ./docker-compose-elk.sh up -d
 
 
-5. To stop the running containers without removing them
+6. To stop the running containers without removing them
 
 .. code:: bash
 
