@@ -23,7 +23,7 @@ Platform Operations, Administration, and Management (OA&M) Release Notes
 Version 1.18.0, 5 September 2018
 --------------------------------
 
--  Updated ELK, filebeat and metricbeat image version to match with database 1.18 version.
+-  Updated ELK, filebeat and metricbeat image version to match with database 1.18 version (ACUMOS-1695).
 
 Version 1.2.0, 15 August 2018
 -----------------------------
