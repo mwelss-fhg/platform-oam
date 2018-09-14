@@ -20,6 +20,11 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 1.18.1, 14 September 2018
+---------------------------------
+
+-  Updated ELK, filebeat and metricbeat as per standard log specification (ACUMOS-1091).
+
 Version 1.18.0, 5 September 2018
 --------------------------------
 

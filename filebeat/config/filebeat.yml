@@ -37,14 +37,7 @@ filebeat.prospectors:
   #enabled: true
   # Paths that should be crawled and fetched. Glob based paths.
   paths:
-    - /filebeat-logs/portal-be/*.log
-    - /filebeat-logs/ccds/*.log
-    - /filebeat-logs/EELF/*.log
-    - /filebeat-logs/portal-fe/*.log
-    - /filebeat-logs/on-boarding/*.log
-    - /filebeat-logs/dsce/*.log
-    - /filebeat-logs/federated-gateway/*.log
-
+    - /filebeat-logs/*/*.log
 
   #encoding: utf-16le-bom
   document_type: log
