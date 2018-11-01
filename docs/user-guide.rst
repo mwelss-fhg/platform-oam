@@ -33,13 +33,26 @@ Acumos Platform super admins
 
 Assumptions
 -----------
-All the modules are following the Acumos Logging Guidelines
+All the modules are following the Acumos Logging Guidelines.  As per mentioned in `Acumos Log Standards Wiki <https://wiki.acumos.org/display/OAM/Log+Standards>`_
 
 
 Elastic Stack Architecture
 --------------------------
 
 .. image:: images/elk_stack.png
+
+
+Elastic Stack Component Goal
+----------------------------
+
+Acumos ELK stack setup has five main components:
+
+- **Elasticsearch**: Elasticsearch is a distributed open source search engine based on Apache Lucene. Acumos Elasticsearch stores all the logs and metrics of Acumos platform host. 
+- **Logstash**: Logstash is a data pipeline that helps collect, parse, and analyze a large variety of incoming logs generated across Acumos Platform. 
+- **Kibana**: Web interface for searching and visualizing logs.
+- **Filebeat**: Filebeat serves as a log shipping agent, Installed on Acumos platform servers it sends logs to Logstash.
+- **Metricbeat**: Installed on Acumos platform servers. it periodically collects the metrics from the Acumos platform host operating system which includes running components information  and ships them to elasticsearch. These metrics are used for monitoring.
+
 
 Elastic Stack Component Versions
 --------------------------------
@@ -53,6 +66,8 @@ Elastic Stack Component Versions
 Elastic Stack Setup
 -------------------
 Elastic Stack installation is automated with Docker Compose. Installation is done on a server separate from where Acumos has been installed.
+
+**Note** We will install components namely Elasticsearch, Logstash and Kibana on a single server, which we will refer to as Acumos ELK stack log collector server. Beat agents namely Filebeat and Metricbeat are installed on Acumos platform host servers.
 
 Prerequisites
 -------------
@@ -120,7 +135,7 @@ Add the configuration below to the docker-compose where the Acumos is installed.
          - <volume-name>:/filebeat-logs
        environment:
          - LOGSTASH_HOST=<elk-stack-host-hostname>
-		 - LOGSTASH_PORT=5000
+         - LOGSTASH_PORT=5000
 
 
 Metricbeat setup steps:
