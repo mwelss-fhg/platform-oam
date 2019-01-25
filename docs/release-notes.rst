@@ -20,6 +20,10 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 2.0.4, 24 January 2019
+-------------------------------
+* Update logstash queries for database version 2.0.4 (`ACUMOS-2403 <https://jira.acumos.org/browse/ACUMOS-2403>`_)
+
 Version 2.0.0, 18 December 2018
 -------------------------------
 * kibana dashboard verbose logstash logs are crashing the log server (`ACUMOS-2151 <https://jira.acumos.org/browse/ACUMOS-2151>`_)
