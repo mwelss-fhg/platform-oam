@@ -20,6 +20,10 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 2.0.7, 07 February 2019
+-------------------------------
+* Add implementation for mandatory MDC default value in logging POC and bump ELK stack version to 2.0.7(`ACUMOS-2458 <https://jira.acumos.org/browse/ACUMOS-2458>`_)
+
 Version 2.0.4, 24 January 2019
 -------------------------------
 * Update logstash queries for database version 2.0.4 (`ACUMOS-2403 <https://jira.acumos.org/browse/ACUMOS-2403>`_)
