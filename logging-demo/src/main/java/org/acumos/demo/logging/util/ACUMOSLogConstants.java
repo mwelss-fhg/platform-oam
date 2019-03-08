@@ -155,8 +155,6 @@ public final class ACUMOSLogConstants {
 	 * Overrideable method to set MDCs based on property values.
 	 */
 	public static void setDefaultMDCs() {
-		MDC.put(MDCs.RESPONSE_CODE, "200");
-		MDC.put(MDCs.RESPONSE_DESCRIPTION, "200 OK");
 		MDC.put(MDCs.RESPONSE_SEVERITY, ResponseSeverity.INFO.toString());
 		MDC.put(MDCs.STATUS_CODE, ResponseStatus.INPROGRESS.toString());
 	}
