@@ -19,9 +19,9 @@ limitations under the License.
 */
 package org.acumos.elk.logging;
 
+import org.slf4j.MDC;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import org.slf4j.MDC;
 
 
 /**
