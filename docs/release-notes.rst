@@ -20,6 +20,10 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 2.0.9, 16 April 2019
+-------------------------------
+* IST- elastic search fails to run (`ACUMOS-2747 <https://jira.acumos.org/browse/ACUMOS-2747>`_)
+
 Version 2.0.8, 29 March 2019
 -------------------------------
 * Add implementation for Platform maintenance support (`ACUMOS-2343 <https://jira.acumos.org/browse/ACUMOS-2343>`_)
