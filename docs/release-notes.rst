@@ -20,6 +20,10 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 2.2.1, 17 April 2019
+-------------------------------
+* Update logstash queries for CDS version 2.2.1 (`ACUMOS-2765 <https://jira.acumos.org/browse/ACUMOS-2765>`_)
+
 Version 2.0.9, 16 April 2019
 -------------------------------
 * IST- elastic search fails to run (`ACUMOS-2747 <https://jira.acumos.org/browse/ACUMOS-2747>`_)
