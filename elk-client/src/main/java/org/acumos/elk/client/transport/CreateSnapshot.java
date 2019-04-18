@@ -19,15 +19,17 @@
  */
 package org.acumos.elk.client.transport;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class CreateSnapshot {
 
-	@ApiModelProperty(required = true, value = "ElasticStack repository name", example = "logstash")
+	@ApiModelProperty(required = true, value = "ElasticStack repository name", example = "logstashBackup")
 	private String repositoryName;
 
-	@ApiModelProperty(required = true, value = "Value ture/false is allowed", example = "true")
-	private String create;
+	@ApiModelProperty(value = "indices names")
+	private List<String> indices;
 
 	public String getRepositoryName() {
 		return repositoryName;
@@ -37,19 +39,19 @@ public class CreateSnapshot {
 		this.repositoryName = repositoryName;
 	}
 
-	public String getCreate() {
-		return create;
+	public List<String> getIndices() {
+		return indices;
 	}
 
-	public void setCreate(String create) {
-		this.create = create;
+	public void setIndices(List<String> indices) {
+		this.indices = indices;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((create == null) ? 0 : create.hashCode());
+		result = prime * result + ((indices == null) ? 0 : indices.hashCode());
 		result = prime * result + ((repositoryName == null) ? 0 : repositoryName.hashCode());
 		return result;
 	}
@@ -63,10 +65,10 @@ public class CreateSnapshot {
 		if (getClass() != obj.getClass())
 			return false;
 		CreateSnapshot other = (CreateSnapshot) obj;
-		if (create == null) {
-			if (other.create != null)
+		if (indices == null) {
+			if (other.indices != null)
 				return false;
-		} else if (!create.equals(other.create))
+		} else if (!indices.equals(other.indices))
 			return false;
 		if (repositoryName == null) {
 			if (other.repositoryName != null)
@@ -75,7 +77,5 @@ public class CreateSnapshot {
 			return false;
 		return true;
 	}
-	
-	
 
 }

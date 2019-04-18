@@ -70,7 +70,6 @@ public class ElkLogSnapshotTaskSchedular {
 				ElkCreateSnapshotRequest createDeleteSnapshotRequest = new ElkCreateSnapshotRequest();
 				List<CreateSnapshot> createSnapshots = new ArrayList<>();
 				CreateSnapshot createSnapshot = new CreateSnapshot();
-				createSnapshot.setCreate(ElkClientConstants.TRUE);
 				createSnapshot.setRepositoryName(eLkRepositoryMetaData.getName());
 				createSnapshots.add(createSnapshot);
 				createDeleteSnapshotRequest.setCreateSnapshots(createSnapshots);

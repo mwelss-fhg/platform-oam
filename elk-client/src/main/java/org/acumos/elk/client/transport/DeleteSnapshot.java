@@ -27,8 +27,6 @@ public class DeleteSnapshot {
 	private String repositoryName;
 	@ApiModelProperty(value = "snapshot-2019-03-28t08-53-41", example = "snapshot-2019-03-28t08-53-41")
 	private String snapShotId;
-	@ApiModelProperty(required = true, value = "Value ture/false is allowed", example = "true")
-	private String delete;
 
 	public String getRepositoryName() {
 		return repositoryName;
@@ -46,19 +44,10 @@ public class DeleteSnapshot {
 		this.snapShotId = snapShotId;
 	}
 
-	public String getDelete() {
-		return delete;
-	}
-
-	public void setDelete(String delete) {
-		this.delete = delete;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((delete == null) ? 0 : delete.hashCode());
 		result = prime * result + ((repositoryName == null) ? 0 : repositoryName.hashCode());
 		result = prime * result + ((snapShotId == null) ? 0 : snapShotId.hashCode());
 		return result;
@@ -73,11 +62,6 @@ public class DeleteSnapshot {
 		if (getClass() != obj.getClass())
 			return false;
 		DeleteSnapshot other = (DeleteSnapshot) obj;
-		if (delete == null) {
-			if (other.delete != null)
-				return false;
-		} else if (!delete.equals(other.delete))
-			return false;
 		if (repositoryName == null) {
 			if (other.repositoryName != null)
 				return false;

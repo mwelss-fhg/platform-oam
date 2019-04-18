@@ -33,7 +33,7 @@ export ACUMOS_ELK_KIBANA_PORT=5601
 export ACUMOS_ELK_CLIENT_PORT=9600
 
 #Elk client schedule cron job for snapshot creation.
-export ELK_CLIENT_CRONSCHEDULE_CREATESNAPSHOT_TIME="* 1 * * * *"
+export ELK_CLIENT_CRONSCHEDULE_CREATESNAPSHOT_TIME="0 0 * * * *"
 
 # Java heap size
 export ACUMOS_ELK_ES_JAVA_HEAP_MIN_SIZE=4g
@@ -51,7 +51,7 @@ export NEXUS3_STAGING_REGISTRY_LF=nexus3.acumos.org:10004
 export NEXUS3_RELEASE_REGISTRY_LF=nexus3.acumos.org:10002
 
 # Images
-export ELASTICSEARCH_IMAGE=acumos-elasticsearch:2.0.9
-export LOGSTASH_IMAGE=acumos-logstash:2.0.9
-export KIBANA_IMAGE=acumos-kibana:2.0.9
-export ELK_CLIENT=elk-client:0.0.1
+export ELASTICSEARCH_IMAGE=acumos-elasticsearch:2.2.2
+export LOGSTASH_IMAGE=acumos-logstash:2.2.2
+export KIBANA_IMAGE=acumos-kibana:2.2.2
+export ELK_CLIENT=elk-client:0.0.2

@@ -20,6 +20,12 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 2.2.2, 18 April 2019
+-------------------------------
+* Metricbeat index archival/purging (`ACUMOS-2065 <https://jira.acumos.org/browse/ACUMOS-2065>`_)
+* Platform maintenance support (`ACUMOS-2004 <https://jira.acumos.org/browse/ACUMOS-2004>`_)
+* Acumos Platform > Logstash to send model usage logs to "model-usage-logs" index instead of "logstash" index (`ACUMOS-2686 <https://jira.acumos.org/browse/ACUMOS-2686>`_)
+
 Version 2.2.1, 17 April 2019
 -------------------------------
 * Update logstash queries for CDS version 2.2.1 (`ACUMOS-2765 <https://jira.acumos.org/browse/ACUMOS-2765>`_)

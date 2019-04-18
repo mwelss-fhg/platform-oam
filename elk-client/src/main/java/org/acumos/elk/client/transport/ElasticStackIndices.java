@@ -19,30 +19,21 @@
  */
 package org.acumos.elk.client.transport;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModelProperty;
 
-public class ElkRepositoriesRequest {
+public class ElasticStackIndices {
 
-	@ApiModelProperty(required = true, value = "ElasticStack repository name", example = "logstash")
-	private String repositoryName;
+	@ApiModelProperty(value = "metricbeat-6.2.4-2019.04.04")
+	private List<String> indices;
 
-	@ApiModelProperty(required = true, value = "Time taken by service 1 minute or more", example = "1m")
-	private String NodeTimeout;
-
-	public String getRepositoryName() {
-		return repositoryName;
+	public List<String> getIndices() {
+		return indices;
 	}
 
-	public void setRepositoryName(String repositoryName) {
-		this.repositoryName = repositoryName;
-	}
-
-	public String getNodeTimeout() {
-		return NodeTimeout;
-	}
-
-	public void setNodeTimeout(String nodeTimeout) {
-		NodeTimeout = nodeTimeout;
+	public void setIndices(List<String> indices) {
+		this.indices = indices;
 	}
 
 }

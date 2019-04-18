@@ -23,6 +23,8 @@ import java.io.IOException;
 
 import org.acumos.elk.client.transport.ElkCreateSnapshotRequest;
 import org.acumos.elk.client.transport.ElkDeleteSnapshotRequest;
+import org.acumos.elk.client.transport.ElasticStackIndiceResponse;
+import org.acumos.elk.client.transport.ElasticStackIndices;
 import org.acumos.elk.client.transport.ElkRepositoriesRequest;
 import org.acumos.elk.client.transport.ElkRestoreSnapshotRequest;
 import org.acumos.elk.client.transport.ElkSnapshotsResponse;
@@ -42,12 +44,12 @@ public interface ISnapshotService {
 	/**
 	 * This method is used to create Snapshot.
 	 * 
-	 * @param createDeleteSnapshotRequest
+	 * @param createSnapshotRequest
 	 *            takes as request parameter
 	 * @return ElkSnapshotsResponse contains snapshot creation status
 	 * @throws Exception
 	 */
-	public ElkSnapshotsResponse createElasticSearchSnapshot(ElkCreateSnapshotRequest createDeleteSnapshotRequest)
+	public ElkSnapshotsResponse createElasticSearchSnapshot(ElkCreateSnapshotRequest createSnapshotRequest)
 			throws Exception;
 
 	/**
@@ -61,12 +63,28 @@ public interface ISnapshotService {
 
 	/**
 	 * This method is used to restore Snapshot.
-	 * 
 	 * @param elkRestoreSnapshotRequest
-	 *            takes as request parameter
 	 * @return contains snapshot restore status
+	 * @throws IOException
+	 */
+	public ElasticStackIndiceResponse restoreElasticSearchSnapshot(ElkRestoreSnapshotRequest elkRestoreSnapshotRequest) throws IOException;
+
+	/**
+	 * This method will return all the indices present in elastic stack.
+	 * 
+	 * @param elkRepositoriesRequest
+	 *            takes repository details.
+	 * @return ElkIndicesResponse contains all the indices details.
 	 * @throws IOException 
 	 */
-	public ElkSnapshotsResponse restoreElasticSearchSnapshot(ElkRestoreSnapshotRequest elkRestoreSnapshotRequest) throws IOException;
+	public ElasticStackIndices getAllElasticSearchIndices() throws IOException;
+	
+	/**
+	 * This method will delete the indices present in elastic stack.
+	 * @param elasticStackIndices
+	 * @return  delete status
+	 * @throws IOException
+	 */
+	public ElasticStackIndiceResponse deleteElasticSearchIndices(ElasticStackIndices elasticStackIndices) throws IOException;
 
 }

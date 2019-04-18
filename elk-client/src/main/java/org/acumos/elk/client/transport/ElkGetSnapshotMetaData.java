@@ -19,6 +19,8 @@
  */
 package org.acumos.elk.client.transport;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -36,6 +38,8 @@ public class ElkGetSnapshotMetaData {
 	private String startTime;
 	@ApiModelProperty(value = "2019-03-28 08-53-41", example = "2019-03-28 08-53-41")
 	private String endTime;
+	@ApiModelProperty(value = "metricbeat-6.2.4-2019.04.04", example = "metricbeat-6.2.4-2019.04.04")
+	private List<String> indices;
 
 	public String getSnapShotId() {
 		return snapShotId;
@@ -75,6 +79,14 @@ public class ElkGetSnapshotMetaData {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public List<String> getIndices() {
+		return indices;
+	}
+
+	public void setIndices(List<String> indices) {
+		this.indices = indices;
 	}
 
 	@Override

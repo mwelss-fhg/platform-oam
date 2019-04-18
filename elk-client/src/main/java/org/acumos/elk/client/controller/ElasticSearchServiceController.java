@@ -27,6 +27,8 @@ import org.acumos.elk.client.service.ISnapshotService;
 import org.acumos.elk.client.transport.ElkCreateSnapshotRequest;
 import org.acumos.elk.client.transport.ElkDeleteSnapshotRequest;
 import org.acumos.elk.client.transport.ElkGetRepositoriesResponse;
+import org.acumos.elk.client.transport.ElasticStackIndiceResponse;
+import org.acumos.elk.client.transport.ElasticStackIndices;
 import org.acumos.elk.client.transport.ElkRepositoriesRequest;
 import org.acumos.elk.client.transport.ElkRestoreSnapshotRequest;
 import org.acumos.elk.client.transport.ElkSnapshotsResponse;
@@ -52,7 +54,8 @@ import org.springframework.web.context.request.WebRequest;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * Operation related to Acumos elastic stack platform. Create, Delete, List repository and snapshot are operation provide.
+ * Operation related to Acumos elastic stack platform. Create, Delete, List
+ * repository and snapshot are operation provide.
  */
 @RestController
 public class ElasticSearchServiceController extends AbstractController {
@@ -65,10 +68,34 @@ public class ElasticSearchServiceController extends AbstractController {
 	@Autowired
 	ISnapshotRepositoryService snapshotGetRepositoryService;
 
+	@ApiOperation(value = "Get all the indices of Elasticstack.")
+	@RequestMapping(value = ElkClientConstants.GET_ALL_INDICES, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ElasticStackIndices> getElkIndices() throws Exception {
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.GET_ALL_INDICES);
+		logger.debug("Inside getElkIndices Service");
+		ElasticStackIndices response = snapshotService.getAllElasticSearchIndices();
+		logger.debug("method call ended.");
+		LogConfig.clearMDCDetails();
+		return new ResponseEntity<ElasticStackIndices>(response, null, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "Delete elasticstack Indices.")
+	@RequestMapping(value = ElkClientConstants.DELETE_INDICES, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ElasticStackIndiceResponse> deleteElkSnapshot(
+			@RequestBody ElasticStackIndices elasticStackIndices) throws Exception {
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.DELETE_INDICES);
+		logger.debug("Inside delete elasticstack indices");
+		ElasticStackIndiceResponse elasticStackIndiceResponse = snapshotService
+				.deleteElasticSearchIndices(elasticStackIndices);
+		logger.debug("method call ended.");
+		LogConfig.clearMDCDetails();
+		return new ResponseEntity<ElasticStackIndiceResponse>(elasticStackIndiceResponse, null, HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "Get all the elasticsearch repositories details of Elasticstack.")
 	@RequestMapping(value = ElkClientConstants.GET_ALL_REPOSITORIES, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ElkGetRepositoriesResponse> getElkRepository() throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.GET_ALL_REPOSITORIES);
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.GET_ALL_REPOSITORIES);
 		logger.debug("Inside getElkRepository Service");
 		ElkGetRepositoriesResponse response = snapshotGetRepositoryService.getAllElkRepository();
 		logger.debug("method call ended.");
@@ -80,7 +107,7 @@ public class ElasticSearchServiceController extends AbstractController {
 	@RequestMapping(value = ElkClientConstants.SNAPSHOT_CREATE_REPOSITORY, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> createElkRepository(@RequestBody ElkRepositoriesRequest elkCreateRepositoriesRequest)
 			throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.SNAPSHOT_CREATE_REPOSITORY);
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.SNAPSHOT_CREATE_REPOSITORY);
 		logger.debug("Inside create elasticstack repository");
 		String repositoryStatus = snapshotGetRepositoryService.createElkRepository(elkCreateRepositoriesRequest);
 		logger.debug("method call ended.");
@@ -92,7 +119,7 @@ public class ElasticSearchServiceController extends AbstractController {
 	@RequestMapping(value = ElkClientConstants.SNAPSHOT_DELETE_REPOSITORY_REQUEST, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> deleteElkRepository(@RequestBody ElkRepositoriesRequest elkDeleteRepositoriesRequest)
 			throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.SNAPSHOT_DELETE_REPOSITORY_REQUEST);
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.SNAPSHOT_DELETE_REPOSITORY_REQUEST);
 		logger.debug("Inside delete elasticstack repository");
 		String repositoryStatus = snapshotGetRepositoryService.deleteElkRepository(elkDeleteRepositoriesRequest);
 		logger.debug("method call ended.");
@@ -103,7 +130,7 @@ public class ElasticSearchServiceController extends AbstractController {
 	@ApiOperation(value = "Get all the elasticsearch snapshot.", response = ElkSnapshotsResponse.class)
 	@RequestMapping(value = ElkClientConstants.GET_ALL_SNAPSHOTS, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ElkSnapshotsResponse getElkSnapshot() throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.GET_ALL_SNAPSHOTS);
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.GET_ALL_SNAPSHOTS);
 		logger.debug("Inside get elasticstack snapshot");
 		ElkRepositoriesRequest elkRepositoriesRequest = new ElkRepositoriesRequest();
 		ElkSnapshotsResponse response = snapshotService.getAllElasticSearchSnapshot(elkRepositoriesRequest);
@@ -115,10 +142,10 @@ public class ElasticSearchServiceController extends AbstractController {
 	@ApiOperation(value = "Create elasticstack snapshot.")
 	@RequestMapping(value = ElkClientConstants.CREATE_SNAPSHOT_REQUEST, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ElkSnapshotsResponse> createElkSnapshot(
-			@RequestBody ElkCreateSnapshotRequest createDeleteSnapshotRequest) throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.CREATE_SNAPSHOT_REQUEST);
+			@RequestBody ElkCreateSnapshotRequest createSnapshotRequest) throws Exception {
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.CREATE_SNAPSHOT_REQUEST);
 		logger.debug("Inside create elasticstack repository");
-		ElkSnapshotsResponse response = snapshotService.createElasticSearchSnapshot(createDeleteSnapshotRequest);
+		ElkSnapshotsResponse response = snapshotService.createElasticSearchSnapshot(createSnapshotRequest);
 		logger.debug("method call ended.");
 		LogConfig.clearMDCDetails();
 		return new ResponseEntity<ElkSnapshotsResponse>(response, null, HttpStatus.OK);
@@ -128,7 +155,7 @@ public class ElasticSearchServiceController extends AbstractController {
 	@RequestMapping(value = ElkClientConstants.DELETE_SNAPSHOT_REQUEST, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ElkSnapshotsResponse> deleteElkSnapshot(
 			@RequestBody ElkDeleteSnapshotRequest elkDeleteSnapshotRequest) throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.DELETE_SNAPSHOT_REQUEST);
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.DELETE_SNAPSHOT_REQUEST);
 		logger.debug("Inside create elasticstack repository");
 		ElkSnapshotsResponse response = snapshotService.deleteElasticSearchSnapshot(elkDeleteSnapshotRequest);
 		logger.debug("method call ended.");
@@ -138,14 +165,15 @@ public class ElasticSearchServiceController extends AbstractController {
 
 	@ApiOperation(value = "Restore elasticstack snapshot.")
 	@RequestMapping(value = ElkClientConstants.RESTORE_SNAPSHOT_REQUEST, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ElkSnapshotsResponse> restoreElkSnapshot(
+	public ResponseEntity<ElasticStackIndiceResponse> restoreElkSnapshot(
 			@RequestBody ElkRestoreSnapshotRequest elkRestoreSnapshotRequest) throws Exception {
-		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.RESTORE_SNAPSHOT_REQUEST);
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.RESTORE_SNAPSHOT_REQUEST);
 		logger.debug("Inside restore elasticstack snapshot");
-		snapshotService.restoreElasticSearchSnapshot(elkRestoreSnapshotRequest);
+		ElasticStackIndiceResponse elasticStackIndiceResponse = snapshotService
+				.restoreElasticSearchSnapshot(elkRestoreSnapshotRequest);
 		logger.debug("restore method call ended.");
 		LogConfig.clearMDCDetails();
-		return new ResponseEntity<ElkSnapshotsResponse>(new ElkSnapshotsResponse(), null, HttpStatus.OK);
+		return new ResponseEntity<ElasticStackIndiceResponse>(elasticStackIndiceResponse, null, HttpStatus.OK);
 	}
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)

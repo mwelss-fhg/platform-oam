@@ -24,6 +24,8 @@ public final class ElkClientConstants {
 	public static final String APPLICATION_JSON = "application/json";
 	public static final String ELASTICSEARCH_GET_ALL_SNAPSHOT = "/all/snapshot";
 
+	public static final String GET_ALL_INDICES = "/all/indices";
+	public static final String DELETE_INDICES = "/delete/indices";
 	public static final String GET_ALL_REPOSITORIES = "/all/repositories";
 	public static final String SNAPSHOT_CREATE_REPOSITORY = "/create/repositories";
 	public static final String SNAPSHOT_DELETE_REPOSITORY_REQUEST = "/delete/repositories";
@@ -36,5 +38,7 @@ public final class ElkClientConstants {
 	public static final String TRUE = "true";
 	public static final String TIME_ONE_MINT_OUT = "1m";
 	public static final String TIME_TWO_MINT_OUT = "2m";
-
+	public static final String SUCCESS = "success";
+	public static final String FAIL = "fail";
+	
 }

@@ -71,15 +71,11 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 			ElkGetRepositoriesResponse elkRepositoriesResponse = new ElkGetRepositoriesResponse();
 			List<ELkRepositoryMetaData> repositories = new ArrayList<>();
 			for (RepositoryMetaData snapshotStatusResponse : repositoryMetaDataResponse) {
-
-				logger.debug("\nNAME: {}", snapshotStatusResponse.name());
-				logger.debug("TYPE: {}", snapshotStatusResponse.type());
-				logger.debug("SETTINGS: {}", snapshotStatusResponse.settings());
-
+				logger.debug("\nNAME: {} \n TYPE: {} \n SETTINGS: {}", snapshotStatusResponse.name(),
+						snapshotStatusResponse.type(), snapshotStatusResponse.settings());
 				ELkRepositoryMetaData repositoryMetaData = new ELkRepositoryMetaData();
 				repositoryMetaData.setName(snapshotStatusResponse.name());
 				repositoryMetaData.setType(snapshotStatusResponse.type());
-
 				JSONObject settings = new JSONObject();
 				for (String key : snapshotStatusResponse.settings().keySet()) {
 					settings.put(key, snapshotStatusResponse.settings().get(key));
@@ -136,6 +132,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		DeleteRepositoryRequest deleteRepositoryRequest = new DeleteRepositoryRequest(
 				elkDeleteRepositoriesRequest.getRepositoryName());
 		deleteRepositoryRequest.masterNodeTimeout(elkDeleteRepositoriesRequest.getNodeTimeout());
+		
 		AcknowledgedResponse deleteAcknowledgedResponse;
 		try {
 			deleteAcknowledgedResponse = client.snapshot().deleteRepository(deleteRepositoryRequest,
