@@ -19,6 +19,8 @@
  */
 package org.acumos.elk.client.service;
 
+import org.acumos.elk.client.transport.ElkArchiveRequest;
+import org.acumos.elk.client.transport.ElkArchiveResponse;
 import org.acumos.elk.client.transport.ElkGetRepositoriesResponse;
 import org.acumos.elk.client.transport.ElkRepositoriesRequest;
 
@@ -53,4 +55,21 @@ public interface ISnapshotRepositoryService {
 	 */
 	public String deleteElkRepository(ElkRepositoriesRequest elkDeleteRepositoriesRequest);
 
+	/**
+	 * This method is used to get archive repository.
+	 * @return archive repository name.
+	 * @throws Exception
+	 */
+	public ElkArchiveResponse getArchiveElkRepository() throws Exception;
+	
+	/**
+	 * This method is used to archive and restore repository.
+	 * @param archiveRequest
+	 * @return archive repository name.
+	 * @throws Exception
+	 */
+	public ElkArchiveResponse archiveElkRepository(ElkArchiveRequest archiveRequest) throws Exception;
+
+
+	
 }

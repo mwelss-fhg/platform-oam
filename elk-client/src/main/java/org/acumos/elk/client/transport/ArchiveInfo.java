@@ -19,51 +19,44 @@
  */
 package org.acumos.elk.client.transport;
 
-import java.util.List;
-
 import io.swagger.annotations.ApiModelProperty;
 
-public class CreateSnapshot {
+public class ArchiveInfo {
 
-	@ApiModelProperty(required = true, value = "ElasticStack repository name", example = "logstashBackup")
-	private String repositoryName;
-	
-	@ApiModelProperty(required = true, value = "ElasticStack snapshot name, \"default\" for default snapshot name.", example = "snapshotName")
-	private String snapshotName;
+	@ApiModelProperty(required = true, value = "snapshot creation date")
+	String date;
 
-	@ApiModelProperty(value = "indices names")
-	private List<String> indices;
+	@ApiModelProperty(required = true, value = "snapshot name.")
+	String backUpName;
 
-	public String getRepositoryName() {
-		return repositoryName;
+	public ArchiveInfo(String date, String backUpName) {
+		super();
+		this.date = date;
+		this.backUpName = backUpName;
 	}
 
-	public void setRepositoryName(String repositoryName) {
-		this.repositoryName = repositoryName;
+	public ArchiveInfo() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getSnapshotName() {
-		return snapshotName;
+	public String getDate() {
+		return date;
 	}
 
-	public void setSnapshotName(String snapshotName) {
-		this.snapshotName = snapshotName;
+	public String getBackUpName() {
+		return backUpName;
 	}
 
-	public List<String> getIndices() {
-		return indices;
-	}
-
-	public void setIndices(List<String> indices) {
-		this.indices = indices;
+	@Override
+	public String toString() {
+		return "ArchiveInfo [date=" + date + ", backUpName=" + backUpName + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((indices == null) ? 0 : indices.hashCode());
-		result = prime * result + ((repositoryName == null) ? 0 : repositoryName.hashCode());
+		result = prime * result + ((backUpName == null) ? 0 : backUpName.hashCode());
 		return result;
 	}
 
@@ -75,16 +68,11 @@ public class CreateSnapshot {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CreateSnapshot other = (CreateSnapshot) obj;
-		if (indices == null) {
-			if (other.indices != null)
+		ArchiveInfo other = (ArchiveInfo) obj;
+		if (backUpName == null) {
+			if (other.backUpName != null)
 				return false;
-		} else if (!indices.equals(other.indices))
-			return false;
-		if (repositoryName == null) {
-			if (other.repositoryName != null)
-				return false;
-		} else if (!repositoryName.equals(other.repositoryName))
+		} else if (!backUpName.equals(other.backUpName))
 			return false;
 		return true;
 	}

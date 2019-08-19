@@ -27,7 +27,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
 
 import org.acumos.elk.client.transport.CreateSnapshot;
 import org.acumos.elk.client.transport.DeleteSnapshot;
@@ -70,24 +73,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.carrotsearch.hppc.cursors.ObjectCursor;
 
 /**
- * Implementation of operation related to elastic stack snapshot. 
+ * Implementation of operation related to elastic stack snapshot.
  *
  */
 @Service
-public class SnapshotServiceImpl  extends AbstractELKClientConnection implements ISnapshotService {
+public class SnapshotServiceImpl extends AbstractELKClientConnection implements ISnapshotService {
 
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Autowired
 	SnapshotRepositoryServiceImpl snapshotRepositoryServiceImpl;
-	
+
 	@Override
 	public ElkSnapshotsResponse getAllElasticSearchSnapshot(ElkRepositoriesRequest elkRepositoriesRequest) {
 		logger.debug("inside getAllElasticSearchSnapshot method ");
+		Predicate<ElasticsearchSnapshotsResponse> chkSnapshots = obj -> (obj.getSnapshots() != null
+				&& obj.getSnapshots().size() > 0);
+
 		ElkSnapshotsResponse elkSnapshotsResponse = new ElkSnapshotsResponse();
 		List<ElasticsearchSnapshotsResponse> elasticsearchSnapshotsResponseList = new ArrayList<>();
 		ElkGetRepositoriesResponse elkGetRepositoriesResponse = snapshotRepositoryServiceImpl.getAllElkRepository();
@@ -95,8 +102,9 @@ public class SnapshotServiceImpl  extends AbstractELKClientConnection implements
 		for (ELkRepositoryMetaData eLkRepositoryMetaData : repositories) {
 			ElasticsearchSnapshotsResponse elasticsearchSnapshotsResponse = getElasticsearchSnapshotDetails(
 					elkRepositoriesRequest, eLkRepositoryMetaData.getName());
-			elasticsearchSnapshotsResponse.setRepositoryName(eLkRepositoryMetaData.getName());
-			elasticsearchSnapshotsResponseList.add(elasticsearchSnapshotsResponse);
+			if (chkSnapshots.test(elasticsearchSnapshotsResponse)) {
+				elasticsearchSnapshotsResponseList.add(elasticsearchSnapshotsResponse);
+			}
 		}
 		elkSnapshotsResponse.setElasticsearchSnapshots(elasticsearchSnapshotsResponseList);
 		return elkSnapshotsResponse;
@@ -126,7 +134,13 @@ public class SnapshotServiceImpl  extends AbstractELKClientConnection implements
 				String dateWithTime = dateTime.toString().replaceAll(":", "-")
 						.substring(0, dateTime.toString().length() - 4).toLowerCase();
 				snapshotName = "snapshot-" + dateWithTime;
-				createSnapshotRequest.snapshot(snapshotName);
+
+				if (createSnapshot.getSnapshotName() != null
+						&& !createSnapshot.getSnapshotName().equalsIgnoreCase("default")) {
+					createSnapshotRequest.snapshot(createSnapshot.getSnapshotName());
+				} else {
+					createSnapshotRequest.snapshot(snapshotName);
+				}
 
 				RestHighLevelClient client = restHighLevelClientConnection();
 				CreateSnapshotResponse createSnapshotResponse;
@@ -251,8 +265,9 @@ public class SnapshotServiceImpl  extends AbstractELKClientConnection implements
 						RequestOptions.DEFAULT);
 				elasticStackIndiceResponse.setMessage(
 						"ElasticStack Snapshot restore is in progress, depending size it will take some time");
-				elasticStackIndiceResponse.setStatus(ElkClientConstants.SUCCESS);
-				logger.debug("RestoreSnapshotResponse : {}", elasticStackIndiceResponse.getMessage());
+				elasticStackIndiceResponse.setStatus(restoreSnapshotResponse.getRestoreInfo().status().toString());
+				logger.debug("RestoreSnapshotResponse : {}, Status: {}", elasticStackIndiceResponse.getMessage(),
+						restoreSnapshotResponse.getRestoreInfo().status().toString());
 			} catch (IOException e) {
 				logger.error("IOException: ", e);
 				throw new ErrorTransport("Unable to connect Elasticserach");
@@ -278,9 +293,12 @@ public class SnapshotServiceImpl  extends AbstractELKClientConnection implements
 			ImmutableOpenMap<String, Settings> indexMap = getSettingsResponse.getIndexToDefaultSettings();
 			for (ObjectCursor<String> key : indexMap.keys()) {
 				logger.debug("key.value: {}", key.value);
-				indices.add(key.value);
+				if (key.value != ".kibana") {
+					indices.add(key.value);
+				}
 			}
 			elkIndicesResponse.setIndices(indices);
+
 		} catch (IOException e1) {
 			logger.debug("IOException: {}", e1);
 			throw new ErrorTransport("Unable to connect Elasticserach");
@@ -368,6 +386,7 @@ public class SnapshotServiceImpl  extends AbstractELKClientConnection implements
 			elkGetSnapshotMetaData.setIndices(indices);
 			snapshotMetaDatas.add(elkGetSnapshotMetaData);
 		}
+		snapshotResponse.setRepositoryName(repositoryName);
 		snapshotResponse.setSnapshots(snapshotMetaDatas);
 		return snapshotResponse;
 	}

@@ -24,11 +24,13 @@ import java.util.Date;
 
 import org.acumos.elk.client.service.ISnapshotRepositoryService;
 import org.acumos.elk.client.service.ISnapshotService;
+import org.acumos.elk.client.transport.ElasticStackIndiceResponse;
+import org.acumos.elk.client.transport.ElasticStackIndices;
+import org.acumos.elk.client.transport.ElkArchiveRequest;
+import org.acumos.elk.client.transport.ElkArchiveResponse;
 import org.acumos.elk.client.transport.ElkCreateSnapshotRequest;
 import org.acumos.elk.client.transport.ElkDeleteSnapshotRequest;
 import org.acumos.elk.client.transport.ElkGetRepositoriesResponse;
-import org.acumos.elk.client.transport.ElasticStackIndiceResponse;
-import org.acumos.elk.client.transport.ElasticStackIndices;
 import org.acumos.elk.client.transport.ElkRepositoriesRequest;
 import org.acumos.elk.client.transport.ElkRestoreSnapshotRequest;
 import org.acumos.elk.client.transport.ElkSnapshotsResponse;
@@ -78,7 +80,7 @@ public class ElasticSearchServiceController extends AbstractController {
 		LogConfig.clearMDCDetails();
 		return new ResponseEntity<ElasticStackIndices>(response, null, HttpStatus.OK);
 	}
-
+	
 	@ApiOperation(value = "Delete elasticstack Indices.")
 	@RequestMapping(value = ElkClientConstants.DELETE_INDICES, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ElasticStackIndiceResponse> deleteElkSnapshot(
@@ -176,6 +178,28 @@ public class ElasticSearchServiceController extends AbstractController {
 		return new ResponseEntity<ElasticStackIndiceResponse>(elasticStackIndiceResponse, null, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Ger all the archive snapshot.")
+	@RequestMapping(value = ElkClientConstants.GET_ALL_ARCHIVE_INFO, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ElkArchiveResponse> getAllArchiveInfoElkSnapshot()throws Exception {
+		LogConfig.setEnteringMDCs("elk-client",ElkClientConstants.GET_ALL_ARCHIVE_INFO);
+		logger.debug("Inside getAllArchiveInfoElkSnapshot");
+		ElkArchiveResponse archiveResponse = snapshotGetRepositoryService.getArchiveElkRepository();
+		logger.debug("method call ended.");
+		LogConfig.clearMDCDetails();
+		return new ResponseEntity<ElkArchiveResponse>(archiveResponse, null, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Archive and Restore elasticstack snapshot.")
+	@RequestMapping(value = ElkClientConstants.ARCHIVE_REQUEST, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ElkArchiveResponse> archiveElkSnapshot(@RequestBody ElkArchiveRequest archiveRequest)throws Exception {
+		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.ARCHIVE_REQUEST);
+		logger.debug("Inside archiveElkSnapshot");
+		ElkArchiveResponse archiveResponse = snapshotGetRepositoryService.archiveElkRepository(archiveRequest);
+		logger.debug("method call ended.");
+		LogConfig.clearMDCDetails();
+		return new ResponseEntity<ElkArchiveResponse>(archiveResponse, null, HttpStatus.OK);
+	}
+	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ErrorTransport.class)
 	public ResponseEntity<ErrorDetails> handleTransportError(ErrorTransport ex, WebRequest request) {

@@ -16,7 +16,7 @@
 
 	<groupId>org.acumos.elk-client</groupId>
 	<artifactId>elk-client</artifactId>
-	<version>2.2.4-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>elk-client</name>
@@ -44,7 +44,6 @@
 		<json.simple.version>1.1.1</json.simple.version>
 		<elasticsearch.version>6.5.4</elasticsearch.version>
 		<elasticsearch.client.version>6.5.4</elasticsearch.client.version>
-
 		<!-- tests still depend on Azure host -->
 		<skipTests>false</skipTests>
 		<!-- Jenkins invokes mvn with argument -Dbuild.number=${BUILD_NUMBER} -->
@@ -257,6 +256,11 @@
 								<assembly>
 									<inline>
 										<files>
+										    <file>
+												<source>script/archive_script.sh</source>
+												<outputDirectory />
+												<destName>es_archive_script/archive_script.sh</destName>
+											</file>
 											<file>
 												<source>target/${project.artifactId}-${project.version}.${project.packaging}</source>
 												<outputDirectory />

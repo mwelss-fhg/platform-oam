@@ -41,11 +41,12 @@ This section list features provided in this services.
     * Delete elastic search snapshot.
     * Restore elastic search snapshot.
  
-ELK Client APIs in Boreas Release
+ELK Client APIs in Clio Release
 ---------------------------------
 
-This section lists the methods in version 2.2.4.
+This section lists the methods in version 3.0.0.
 
-.. swaggerv2doc:: api/elkclient-api-docs-2.2.4.json
+.. swaggerv2doc:: api/elkclient-api-docs-3.0.0.json
+
 
    

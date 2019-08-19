@@ -89,6 +89,7 @@ services:
           - ${ACUMOS_ELK_CLIENT_PORT}:9006
       volumes:
           - acumos-logs:/maven/logs
+          - acumos-esdata:/elasticsearch/data
       logging:
           driver: json-file          
 

@@ -20,6 +20,10 @@
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
 
+Version 3.0.0, 19 August 2019
+-------------------------------
+* Archival API is required (`ACUMOS-3301 <https://jira.acumos.org/browse/ACUMOS-3301>`_)
+
 Version 2.2.4, 01 August 2019
 -------------------------------
 * Update docs for elk-client (`ACUMOS-3308 <https://jira.acumos.org/browse/ACUMOS-3308>`_)
