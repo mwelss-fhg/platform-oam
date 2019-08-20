@@ -135,12 +135,7 @@ public class SnapshotServiceImpl extends AbstractELKClientConnection implements 
 						.substring(0, dateTime.toString().length() - 4).toLowerCase();
 				snapshotName = "snapshot-" + dateWithTime;
 
-				if (createSnapshot.getSnapshotName() != null
-						&& !createSnapshot.getSnapshotName().equalsIgnoreCase("default")) {
-					createSnapshotRequest.snapshot(createSnapshot.getSnapshotName());
-				} else {
-					createSnapshotRequest.snapshot(snapshotName);
-				}
+				createSnapshotRequest.snapshot(snapshotName);
 
 				RestHighLevelClient client = restHighLevelClientConnection();
 				CreateSnapshotResponse createSnapshotResponse;

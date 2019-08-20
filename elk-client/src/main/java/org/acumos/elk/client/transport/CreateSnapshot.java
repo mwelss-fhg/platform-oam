@@ -27,9 +27,6 @@ public class CreateSnapshot {
 
 	@ApiModelProperty(required = true, value = "ElasticStack repository name", example = "logstashBackup")
 	private String repositoryName;
-	
-	@ApiModelProperty(required = true, value = "ElasticStack snapshot name, \"default\" for default snapshot name.", example = "snapshotName")
-	private String snapshotName;
 
 	@ApiModelProperty(value = "indices names")
 	private List<String> indices;
@@ -40,14 +37,6 @@ public class CreateSnapshot {
 
 	public void setRepositoryName(String repositoryName) {
 		this.repositoryName = repositoryName;
-	}
-
-	public String getSnapshotName() {
-		return snapshotName;
-	}
-
-	public void setSnapshotName(String snapshotName) {
-		this.snapshotName = snapshotName;
 	}
 
 	public List<String> getIndices() {
