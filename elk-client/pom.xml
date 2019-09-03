@@ -244,7 +244,7 @@
 							<!-- Specify a tag to avoid default tag "latest" -->
 							<name>elk-client:${project.version}</name>
 							<build>
-								<from>adoptopenjdk/openjdk11-openj9:alpine-jre</from>
+								<from>openjdk:11-jre-slim</from>
 								<tags>
 									<!-- Add tag with build number -->
 									<tag>${project.version}-b${build.number}</tag>
