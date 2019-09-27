@@ -34,16 +34,11 @@ repositories:
     - 'platform-oam'
 committers:
     - <<: *acumos_platform-oam_ptl
-    - name: 'Aimee Ukasick'
-      email: 'aimeeu@research.att.com'
-      company: 'ATT'
-      id: 'aimeeu'
+    - name: 'Vineet Tripathi'
+      email: 'VT00325492@techmahindra.com'
+      company: 'TechM'
+      id: 'vt00325492@techmahindra.com'
       timezone: 'America/Chicago'
-    - name: 'Parichay Gupta'
-      email: 'pg0057291@techmahindra.com'
-      company: 'TechMahindra'
-      id: 'parichay12'
-      timezone: 'America/New_York'
 tsc:
     approval: ''
     changes:
