@@ -58,6 +58,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.acumos.elk.exception.ELKException;
+
 /**
  * Implementation of operation related to elastic stack repository.
  *
@@ -103,9 +105,17 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		for (ELkRepositoryMetaData eLkRepositoryMetaData : elkRepositoryMetaDataList) {
 			repositoryNameSet.add(eLkRepositoryMetaData.getName());
 		}
-		if (repositoryNameSet.contains(elkCreateRepositoriesRequest.getRepositoryName())) {
-			return "false | RepositoryName already exist";
+		
+		try {
+			if (repositoryNameSet.contains(elkCreateRepositoriesRequest.getRepositoryName())) {
+				throw new ELKException("false | RepositoryName already exist");
+				
+			}
+		} catch (ELKException e) {
+			logger.debug(e.getMessage());
+			logger.info(e.getMessage());
 		}
+		
 		boolean acknowledged = createRepo(elkCreateRepositoriesRequest, "backup");
 		createRepo(elkCreateRepositoriesRequest, ElkClientConstants.ARCHIVE_ES_DATA);
 
