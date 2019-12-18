@@ -94,7 +94,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		return elkRepositoriesResponse;
 	}
 
-	public String createElkRepository(ElkRepositoriesRequest elkCreateRepositoriesRequest) {
+	public String createElkRepository(ElkRepositoriesRequest elkCreateRepositoriesRequest) throws Exception {
 		logger.debug("Inside createElkRepository ");
 		if (StringUtils.isEmpty(elkCreateRepositoriesRequest.getRepositoryName())) {
 			return "false | RepositoryName empty is not allowed";
@@ -105,21 +105,15 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		for (ELkRepositoryMetaData eLkRepositoryMetaData : elkRepositoryMetaDataList) {
 			repositoryNameSet.add(eLkRepositoryMetaData.getName());
 		}
-		
-		try {
-			if (repositoryNameSet.contains(elkCreateRepositoriesRequest.getRepositoryName())) {
-				throw new ELKException("false | RepositoryName already exist");
-				
-			}
-		} catch (ELKException e) {
-			logger.debug(e.getMessage());
-			logger.info(e.getMessage());
-		}
-		
-		boolean acknowledged = createRepo(elkCreateRepositoriesRequest, "backup");
-		createRepo(elkCreateRepositoriesRequest, ElkClientConstants.ARCHIVE_ES_DATA);
+		boolean acknowledged = false;
+		if (repositoryNameSet.contains(elkCreateRepositoriesRequest.getRepositoryName())) {
+			throw new ELKException("false | RepositoryName already exist");
+		} else {
+			acknowledged = createRepo(elkCreateRepositoriesRequest, "backup");
+			createRepo(elkCreateRepositoriesRequest, ElkClientConstants.ARCHIVE_ES_DATA);
 
-		logger.debug("Repository is created(true for created)  {}", acknowledged);
+			logger.debug("Repository is created ", acknowledged);
+		}		
 		return String.valueOf(acknowledged);
 	}
 
