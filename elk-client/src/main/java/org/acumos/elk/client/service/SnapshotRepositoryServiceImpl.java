@@ -232,7 +232,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		};
 
 		String result = null;
-		String resultDelete = null;
+	
 		String[] archiveInfoArray;
 		List<String> resultList = new ArrayList<>();
 		if (action.equalsIgnoreCase(ElkClientConstants.INFO)) {
@@ -249,12 +249,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 					result = ElkServiceUtils.executeScript(action, repoName);
 					resultList.add(result.trim());
 
-					if (action != null && !action.isEmpty()
-							&& action.equalsIgnoreCase(ElkClientConstants.RESTORE_REQUEST)) {
-						resultDelete = ElkServiceUtils.executeScript(ElkClientConstants.DELETE_REQUEST, repoName);
-					}
-
-					resultList.add(resultDelete.trim());
+					
 				}
 			} catch (Exception ex) {
 				logger.debug("Exception:", ex);
