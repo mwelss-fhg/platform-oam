@@ -241,8 +241,9 @@
 					<!-- LF credentials are not supplied here -->
 					<images>
 						<image>
+							<!-- Prefix must be "acumos/" -->
 							<!-- Specify a tag to avoid default tag "latest" -->
-							<name>elk-client:${project.version}</name>
+							<name>acumos/elk-client:${project.version}</name>
 							<build>
 								<from>openjdk:11-jre-slim</from>
 								<tags>
