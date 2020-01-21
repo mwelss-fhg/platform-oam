@@ -15,4 +15,6 @@ containers:
       version: 3.0.5
     - name: elk-client
       version: 3.0.5
+    - name: acumos-elasticsearch
+      version: 3.0.5
       
