@@ -100,10 +100,12 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 			return "false | RepositoryName empty is not allowed";
 		}
 		ElkGetRepositoriesResponse response = getAllElkRepository();
+		logger.debug("elkCreateRepositoriesRequest.getRepositoryName():{}" + elkCreateRepositoriesRequest.getRepositoryName());
 		List<ELkRepositoryMetaData> elkRepositoryMetaDataList = response.getRepositories();
 		Set<String> repositoryNameSet = new HashSet<>();
 		for (ELkRepositoryMetaData eLkRepositoryMetaData : elkRepositoryMetaDataList) {
 			repositoryNameSet.add(eLkRepositoryMetaData.getName());
+			logger.debug("eLkRepositoryMetaData.getName():{}" + eLkRepositoryMetaData.getName());
 		}
 		boolean acknowledged = false;
 		if (repositoryNameSet.contains(elkCreateRepositoriesRequest.getRepositoryName())) {
@@ -216,7 +218,10 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 	public ElkArchiveResponse archiveElkRepository(ElkArchiveRequest archiveRequest) throws Exception {
 		logger.debug("Inside archiveElkRepository");
 		String action = archiveRequest.getAction();
+		logger.debug("action: {} ", action);
+		logger.debug("archiveRequest: {} ", archiveRequest);
 		ElkArchiveResponse elkArchiveResponse = archiveOperation(archiveRequest, action);
+		logger.debug("elkArchiveResponse: {} ", elkArchiveResponse);
 		return elkArchiveResponse;
 	}
 
@@ -241,6 +246,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 				result = ElkServiceUtils.executeScript(action, "NA");
 			
 				logger.debug("result INFO: {} ", result);
+				logger.debug("resultList.size(): {}", resultList.size());
 				resultList.add(result.trim());
 			} catch (Exception ex) {
 				logger.debug("Exception:", ex);
@@ -272,6 +278,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 					archiveInfoList.add(f.apply(archiveInfo));
 				}
 			}
+			logger.debug("archiveInfoList.size(): {}", archiveInfoList.size());
 			elkArchiveResponse.setMsg("Action:" + action + " done");
 			elkArchiveResponse.setStatus(ElkClientConstants.SUCCESS);
 			elkArchiveResponse.setArchiveInfo(archiveInfoList);
@@ -280,7 +287,9 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 				for (ArchiveInfo archiveInfo : archiveInfoList) {
 					ElkRepositoriesRequest elkCreateRepositoriesRequest = new ElkRepositoriesRequest();
 					elkCreateRepositoriesRequest.setRepositoryName(archiveInfo.getRepositoryName());
+					logger.debug("archiveInfo.getRepositoryName():{}" + archiveInfo.getRepositoryName());
 					elkCreateRepositoriesRequest.setNodeTimeout(ElkClientConstants.TIME_ONE_MINT_OUT);
+					logger.debug("elkCreateRepositoriesRequest:{}" + elkCreateRepositoriesRequest);
 					createElkRepository(elkCreateRepositoriesRequest);
 				}
 			}
@@ -337,6 +346,9 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		String locationKey = FsRepository.LOCATION_SETTING.getKey();
 		String locationValue = elkCreateRepositoriesRequest.getRepositoryName().trim();
 		String compressKey = FsRepository.COMPRESS_SETTING.getKey();
+		logger.debug("locationKey:{}" + locationKey);
+		logger.debug("locationValue:{}" + locationValue);
+		logger.debug("compressKey:{}" + compressKey);
 		boolean compressValue = true;
 		if (repoType == ElkClientConstants.ARCHIVE_ES_DATA) {
 			request.name(
@@ -347,11 +359,14 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 			request.name(elkCreateRepositoriesRequest.getRepositoryName().trim());
 		}
 		Settings settings = Settings.builder().put(locationKey, locationValue).put(compressKey, compressValue).build();
+		logger.debug("settings.size():{}" + settings.size());
+		logger.debug("settings.toString():{}" + settings.toString());
 		request.settings(settings);
 		request.type(FsRepository.TYPE);
 		if (StringUtils.isEmpty(elkCreateRepositoriesRequest.getNodeTimeout())) {
 			request.masterNodeTimeout(ElkClientConstants.TIME_ONE_MINT_OUT);
 		} else {
+			logger.debug("elkCreateRepositoriesRequest.getNodeTimeout():{}" + elkCreateRepositoriesRequest.getNodeTimeout());
 			request.masterNodeTimeout(elkCreateRepositoriesRequest.getNodeTimeout());
 		}
 		request.verify(true);
@@ -360,6 +375,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		try {
 			acknowledgedResponse = client.snapshot().createRepository(request, RequestOptions.DEFAULT);
 			acknowledged = acknowledgedResponse.isAcknowledged();
+			logger.debug("acknowledged:{}" + acknowledged);
 			client.close();
 		} catch (IOException ex) {
 			logger.debug("Exception:", ex);

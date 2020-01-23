@@ -40,7 +40,9 @@ public class ElkServiceUtils {
 		BufferedReader reader = null;
 		StringBuilder result = new StringBuilder();
 		try {
-
+			logger.debug("scriptFileName: {}", scriptFileName);
+			logger.debug("action: {}", action);
+			logger.debug("repoName: {}", repoName);
 			String[] cmd = { "bash", scriptFileName, action, repoName };
 			processBuilder = new ProcessBuilder(cmd);
 			if (processBuilder != null) {
