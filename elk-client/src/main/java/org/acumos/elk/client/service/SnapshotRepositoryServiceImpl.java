@@ -259,7 +259,12 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 					logger.debug("result : {}", result);
 					resultList.add(result.trim());
 					logger.debug("resultList.size(): {}", resultList.size());
-
+					if (action.equalsIgnoreCase("delete")) {
+						ElkRepositoriesRequest elkDeleteRepositoriesRequest= new ElkRepositoriesRequest();
+						elkDeleteRepositoriesRequest.setNodeTimeout(ElkClientConstants.TIME_ONE_MINT_OUT);
+						elkDeleteRepositoriesRequest.setRepositoryName(repoName);
+						deleteElkRepository(elkDeleteRepositoriesRequest);
+                    }
 					
 				}
 			} catch (Exception ex) {
