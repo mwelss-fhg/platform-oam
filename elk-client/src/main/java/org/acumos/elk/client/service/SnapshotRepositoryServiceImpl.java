@@ -109,7 +109,8 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		}
 		boolean acknowledged = false;
 		if (repositoryNameSet.contains(elkCreateRepositoriesRequest.getRepositoryName())) {
-			throw new ELKException("false | RepositoryName already exist");
+			//throw new ELKException("false | RepositoryName already exist");
+			logger.debug("elkCreateRepositoriesRequest.getRepositoryName():{} | RepositoryName already exist", elkCreateRepositoriesRequest.getRepositoryName());
 		} else {
 			acknowledged = createRepo(elkCreateRepositoriesRequest, "backup");
 			createRepo(elkCreateRepositoriesRequest, ElkClientConstants.ARCHIVE_ES_DATA);
@@ -246,7 +247,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 				result = ElkServiceUtils.executeScript(action, "NA");
 			
 				logger.debug("result INFO: {} ", result);
-				logger.debug("resultList.size(): {}", resultList.size());
+				logger.debug("resultList.size() INFO: {}", resultList.size());
 				resultList.add(result.trim());
 			} catch (Exception ex) {
 				logger.debug("Exception:", ex);
@@ -259,13 +260,13 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 					logger.debug("result : {}", result);
 					resultList.add(result.trim());
 					logger.debug("resultList.size(): {}", resultList.size());
-					if (action.equalsIgnoreCase("delete") || action.equalsIgnoreCase("restore")) {
+					if (action.equalsIgnoreCase(ElkClientConstants.DELETE_REQUEST) || action.equalsIgnoreCase(ElkClientConstants.RESTORE_REQUEST)) {
+						logger.debug("action.equalsIgnoreCase : ", action);
 						ElkRepositoriesRequest elkDeleteRepositoriesRequest= new ElkRepositoriesRequest();
 						elkDeleteRepositoriesRequest.setNodeTimeout(ElkClientConstants.TIME_ONE_MINT_OUT);
 						elkDeleteRepositoriesRequest.setRepositoryName(repoName);
 						deleteElkRepository(elkDeleteRepositoriesRequest);
-                    }
-					
+                    }					
 				}
 			} catch (Exception ex) {
 				logger.debug("Exception:", ex);
@@ -287,18 +288,18 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 			elkArchiveResponse.setMsg("Action:" + action + " done");
 			elkArchiveResponse.setStatus(ElkClientConstants.SUCCESS);
 			elkArchiveResponse.setArchiveInfo(archiveInfoList);
-			logger.debug("archiveInfoList:{}" + archiveInfoList);
-			if (action.equalsIgnoreCase("RESTORE")) {
+			logger.debug("archiveInfoList:{} action:{}" + archiveInfoList, action);
+			if (action.equalsIgnoreCase(ElkClientConstants.RESTORE_REQUEST)) {
 				for (ArchiveInfo archiveInfo : archiveInfoList) {
 					ElkRepositoriesRequest elkCreateRepositoriesRequest = new ElkRepositoriesRequest();
 					elkCreateRepositoriesRequest.setRepositoryName(archiveInfo.getRepositoryName());
-					logger.debug("archiveInfo.getRepositoryName():{}" + archiveInfo.getRepositoryName());
+					logger.debug("archiveInfo.getRepositoryName():{}  action:{}" + archiveInfo.getRepositoryName(), action);
 					elkCreateRepositoriesRequest.setNodeTimeout(ElkClientConstants.TIME_ONE_MINT_OUT);
-					logger.debug("elkCreateRepositoriesRequest:{}" + elkCreateRepositoriesRequest);
+					logger.debug("elkCreateRepositoriesRequest:{}  action:{}" + elkCreateRepositoriesRequest.getRepositoryName(), action);
 					createElkRepository(elkCreateRepositoriesRequest);
 				}
 			}
-
+			logger.debug("completed for loop of restore:{}" + archiveInfoList);
 		} else {
 			logger.debug("result:" + result);
 			if (result.contains("\n")) {
