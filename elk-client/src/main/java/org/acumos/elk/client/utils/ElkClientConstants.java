@@ -44,7 +44,9 @@ public final class ElkClientConstants {
 	public static final String FAIL = "fail";
 	public static final String INFO = "INFO";
 	public static final String ARCHIVE_ES_DATA = "archive-es-data";
+	public static final String CREATE_REQUEST = "create";
 	public static final String RESTORE_REQUEST = "restore";
 	public static final String DELETE_REQUEST = "delete";
+	public static final String BACKUP_REQUEST = "backup";
 	
 }

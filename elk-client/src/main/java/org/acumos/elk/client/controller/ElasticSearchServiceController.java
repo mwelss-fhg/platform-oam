@@ -114,8 +114,8 @@ public class ElasticSearchServiceController extends AbstractController {
 		LogConfig.setEnteringMDCs("elk-client", ElkClientConstants.SNAPSHOT_CREATE_REPOSITORY);
 		String repositoryStatus = null;
 		logger.debug("Inside create elasticstack repository");
-
-		repositoryStatus = snapshotGetRepositoryService.createElkRepository(elkCreateRepositoriesRequest);
+		String action = ElkClientConstants.CREATE_REQUEST;
+		repositoryStatus = snapshotGetRepositoryService.createElkRepository(elkCreateRepositoriesRequest, action);
 
 		logger.debug("method call ended.");
 		LogConfig.clearMDCDetails();
