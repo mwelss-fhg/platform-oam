@@ -290,7 +290,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 			elkArchiveResponse.setStatus(ElkClientConstants.SUCCESS);
 			elkArchiveResponse.setArchiveInfo(archiveInfoList);
 			logger.debug("archiveInfoList:{} action:{}", archiveInfoList, action);
-			/*if (action.equalsIgnoreCase(ElkClientConstants.RESTORE_REQUEST)) {
+			if (action.equalsIgnoreCase(ElkClientConstants.RESTORE_REQUEST)) {
 				for (ArchiveInfo archiveInfo : archiveInfoList) {
 					ElkRepositoriesRequest elkCreateRepositoriesRequest = new ElkRepositoriesRequest();
 					elkCreateRepositoriesRequest.setRepositoryName(archiveInfo.getRepositoryName());
@@ -299,7 +299,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 					logger.debug("elkCreateRepositoriesRequest:{}  action:{}", elkCreateRepositoriesRequest.getRepositoryName(), action);
 					createElkRepository(elkCreateRepositoriesRequest, action);
 				}
-			}*/
+			}
 			logger.debug("completed for loop of restore:{}" + archiveInfoList);
 		} else {
 			logger.debug("result:" + result);

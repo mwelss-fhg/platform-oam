@@ -97,6 +97,7 @@ log INFO "Inside restore_esdata:"
             chown '1000:1000' ../../elasticsearch/data/backup/$repo
             log INFO "Restore done:$(date +%Y-%m-%d:%H:%M:%SZ),$repo"
             echo "$(date +%Y-%m-%d:%H:%M:%SZ),$repo"
+            rm -rf $directory_name/$repo
         else
             log ERROR "$repo:Repository not found | No data available to restore"
             echo "No data present to restore"
