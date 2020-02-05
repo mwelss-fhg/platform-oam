@@ -19,6 +19,16 @@
 ========================================================================
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
+Version 3.0.7, 04 February 2020
+--------------------------------
+* ACUMOS-3882	remove logback.xml file from logging-demo jar library 
+* ACUMOS-3890	Remove the "demo" from logging library
+* ACUMOS-3585	Rest API to test for logging standard
+* ACUMOS-3805	Logging library enhancements
+
+Version 3.0.6, 31 January 2020
+--------------------------------
+* ACUMOS-3918	<IST2><Platform OA&M>Getting 503 error while restoring repository, eventhough the repository is getting restored
 
 Version 3.0.5, 20 December 2019
 --------------------------------
