@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import org.acumos.logging.library.util.ACUMOSLogConstants;
-import org.acumos.logging.library.util.LogConfig;
-import org.acumos.logging.library.util.LoggingConstant;
-import org.acumos.logging.library.util.ACUMOSLogConstants.InvocationMode;
-import org.acumos.logging.library.util.ACUMOSLogConstants.MDCs;
+import org.acumos.logging.util.ACUMOSLogConstants;
+import org.acumos.logging.util.ACUMOSLogConstants.InvocationMode;
+import org.acumos.logging.util.LogConfig;
+import org.acumos.logging.util.LoggingConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -27,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
+ 
 @Api(value = "Swagger2DemoRestController", description = "Looging Apis related to Logging jar!!!!")
 @RestController
 public class LoggingController {
