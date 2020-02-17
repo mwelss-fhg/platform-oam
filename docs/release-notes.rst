@@ -19,6 +19,14 @@
 ========================================================================
 Platform Operations, Administration, and Management (OA&M) Release Notes
 ========================================================================
+
+Version 4.0.1, 14 February 2020
+--------------------------------
+* ACUMOS-3807	ELK Client enhancements
+* ACUMOS-3753	<IST> Need more details on Where archived and restored logs are stored in application
+* ACUMOS-3720	<IST2><Marketplace/OA&M><Maintained Backup Logs> After restoring, the records are not disappearing from Archived Logs page
+* ACUMOS-3970	Junits for Logging
+
 Version 3.0.7, 04 February 2020
 --------------------------------
 * ACUMOS-3882	remove logback.xml file from logging-demo jar library 
