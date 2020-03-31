@@ -356,7 +356,7 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		logger.debug("locationKey:{}" + locationKey);
 		logger.debug("locationValue:{}" + locationValue);
 		logger.debug("compressKey:{}" + compressKey);
-		boolean compressValue = true;
+		//boolean compressValue = false;
 		if (repoType == ElkClientConstants.ARCHIVE_ES_DATA) {
 			request.name(
 					ElkClientConstants.ARCHIVE_ES_DATA + "-" + elkCreateRepositoriesRequest.getRepositoryName().trim());
@@ -365,7 +365,8 @@ public class SnapshotRepositoryServiceImpl extends AbstractELKClientConnection i
 		} else {
 			request.name(elkCreateRepositoriesRequest.getRepositoryName().trim());
 		}
-		Settings settings = Settings.builder().put(locationKey, locationValue).put(compressKey, compressValue).build();
+		//Settings settings = Settings.builder().put(locationKey, locationValue).put(compressKey, compressValue).build();
+		Settings settings = Settings.builder().put(locationKey, locationValue).build();
 		logger.debug("settings.size():{}" + settings.size());
 		logger.debug("settings.toString():{}" + settings.toString());
 		request.settings(settings);
