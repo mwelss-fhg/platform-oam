@@ -42,17 +42,9 @@ filebeat.inputs:
 
 #------------------------------ Log input --------------------------------
 - type: log
-  # Paths that should be crawled and fetched. Glob based paths.
-  paths:
-    - /filebeat-logs/*/*.log
-
-  #encoding: utf-16le-bom
-  #document_type: log
-  #fields_under_root: true
-- type: log
 
   # Change to true to enable this input configuration.
-  enabled: false
+  #enabled: false
 
   # Paths that should be crawled and fetched. Glob based paths.
   # To fetch all ".log" files from a specific level of subdirectories
@@ -60,13 +52,9 @@ filebeat.inputs:
   # For each file found under this path, a harvester is started.
   # Make sure not file is defined twice as this can lead to unexpected behaviour.
   paths:
-    - /opt/app/lum/log-acu/lum-server/lum-server.log
+    - /filebeat-logs/*/*.log
     #- /var/log/*.log
     #- c:\programdata\elasticsearch\logs\*
-
-  json.message_key: event
-  json.keys_under_root: true
-
 
   # Configure the file encoding for reading files with international characters
   # following the W3C recommendation for HTML5 (http://www.w3.org/TR/encoding).
@@ -74,7 +62,9 @@ filebeat.inputs:
   #   plain, utf-8, utf-16be-bom, utf-16be, utf-16le, big5, gb18030, gbk,
   #    hz-gb-2312, euc-kr, euc-jp, iso-2022-jp, shift-jis, ...
   #encoding: plain
-
+  #encoding: utf-16le-bom
+  #document_type: log
+  #fields_under_root: true
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
   # matching any regular expression from the list. The include_lines is called before
