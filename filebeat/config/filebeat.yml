@@ -41,22 +41,18 @@ filebeat.inputs:
 # * stdin: Reads the standard in
 
 #------------------------------ Log input --------------------------------
-#=========================== Filebeat prospectors =============================
+- type: log
 
-filebeat.prospectors:
+  # Change to true to enable this input configuration.
+  enabled: false
 
-# Each - is a prospector. Most options can be set at the prospector level, so
-# you can use different prospectors for various configurations.
-# Below are the prospector specific configurations.
-
-- input_type: log
-  #enabled: true
   # Paths that should be crawled and fetched. Glob based paths.
+  # To fetch all ".log" files from a specific level of subdirectories
+  # /var/log/*/*.log can be used.
+  # For each file found under this path, a harvester is started.
+  # Make sure not file is defined twice as this can lead to unexpected behaviour.
   paths:
-    - /filebeat-logs/*/*.log
-
-  #encoding: utf-16le-bom
-  document_type: log
+    - /filebeat-logs/*/*.log 
     #- /var/log/*.log
     #- c:\programdata\elasticsearch\logs\*
 
@@ -66,9 +62,7 @@ filebeat.prospectors:
   #   plain, utf-8, utf-16be-bom, utf-16be, utf-16le, big5, gb18030, gbk,
   #    hz-gb-2312, euc-kr, euc-jp, iso-2022-jp, shift-jis, ...
   #encoding: plain
-  #encoding: utf-16le-bom
-  #document_type: log
-  #fields_under_root: true
+
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
   # matching any regular expression from the list. The include_lines is called before
@@ -153,12 +147,11 @@ filebeat.prospectors:
   # Multiline can be used for log messages spanning multiple lines. This is common
   # for Java Stack Traces or C-Line Continuation
 
-  
+  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
+  #multiline.pattern: ^\[
   multiline.pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{3}'
   multiline.negate: true
   multiline.match: after
-  # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
-  #multiline.pattern: ^\[
 
   # Defines if the pattern set under pattern should be negated or not. Default is false.
   #multiline.negate: false
@@ -250,21 +243,16 @@ filebeat.prospectors:
 
   # Defines if inputs is enabled
   #enabled: true
-
-#================================ Outputs =====================================
-
-#----------------------------- Logstash output ---------------------------------
-output.logstash:
-  # The Logstash hosts
-  hosts: ["${LOGSTASH_HOST}:${LOGSTASH_PORT}"]
-  bulk_max_size: 1024
+  
+ #----------------------------- Logstash output ---------------------------------
 #output.logstash:
   # Boolean flag to enable or disable the output module.
   #enabled: true
 
   # The Logstash hosts
   #hosts: ["localhost:5044"]
-
+  hosts: ["${LOGSTASH_HOST}:${LOGSTASH_PORT}"]
+  bulk_max_size: 1024 
   # Number of workers per Logstash host.
   #worker: 1
 
@@ -363,15 +351,71 @@ output.logstash:
 
   # The number of seconds to wait for responses from the Logstash server before
   # timing out. The default is 30s.
-  #timeout: 30s
-
-#================================ Logging =====================================
+  #timeout: 30s 
+  
+ #================================ Logging ======================================
+# There are four options for the log output: file, stderr, syslog, eventlog
+# The file output is the default.
 
 # Sets log level. The default log level is info.
-# Available log levels are: critical, error, warning, info, debug
-#logging.level: debug
+# Available log levels are: error, warning, info, debug
+#logging.level: info
 
-# At debug level, you can selectively enable logging only for some components.
-# To enable all selectors use ["*"]. Examples of other selectors are "beat",
-# "publish", "service".
-#logging.selectors: ["*"]
+# Enable debug output for selected components. To enable all selectors use ["*"]
+# Other available selectors are "beat", "publish", "service"
+# Multiple selectors can be chained.
+#logging.selectors: [ ]
+
+# Send all logging output to stderr. The default is false.
+#logging.to_stderr: false
+
+# Send all logging output to syslog. The default is false.
+#logging.to_syslog: false
+
+# Send all logging output to Windows Event Logs. The default is false.
+#logging.to_eventlog: false
+
+# If enabled, Filebeat periodically logs its internal metrics that have changed
+# in the last period. For each metric that changed, the delta from the value at
+# the beginning of the period is logged. Also, the total values for
+# all non-zero internal metrics are logged on shutdown. The default is true.
+#logging.metrics.enabled: true
+
+# The period after which to log the internal metrics. The default is 30s.
+#logging.metrics.period: 30s
+
+# Logging to rotating files. Set logging.to_files to false to disable logging to
+# files.
+logging.to_files: true
+logging.files:
+  # Configure the path where the logs are written. The default is the logs directory
+  # under the home path (the binary location).
+  #path: /var/log/filebeat
+
+  # The name of the files where the logs are written to.
+  #name: filebeat
+
+  # Configure log file size limit. If limit is reached, log file will be
+  # automatically rotated
+  #rotateeverybytes: 10485760 # = 10MB
+
+  # Number of rotated log files to keep. Oldest files will be deleted first.
+  #keepfiles: 7
+
+  # The permissions mask to apply when rotating log files. The default value is 0600.
+  # Must be a valid Unix-style file permissions mask expressed in octal notation.
+  #permissions: 0600
+
+  # Enable log file rotation on time intervals in addition to size-based rotation.
+  # Intervals must be at least 1s. Values of 1m, 1h, 24h, 7*24h, 30*24h, and 365*24h
+  # are boundary-aligned with minutes, hours, days, weeks, months, and years as
+  # reported by the local system clock. All other intervals are calculated from the
+  # Unix epoch. Defaults to disabled.
+  #interval: 0
+
+  # Rotate existing logs on startup rather than appending to the existing
+  # file. Defaults to true.
+  # rotateonstartup: true
+
+# Set to true to log messages in JSON format.
+#logging.json: false
