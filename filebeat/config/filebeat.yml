@@ -41,18 +41,22 @@ filebeat.inputs:
 # * stdin: Reads the standard in
 
 #------------------------------ Log input --------------------------------
-- type: log
+#=========================== Filebeat prospectors =============================
 
-  # Change to true to enable this input configuration.
-  #enabled: false
+filebeat.prospectors:
 
+# Each - is a prospector. Most options can be set at the prospector level, so
+# you can use different prospectors for various configurations.
+# Below are the prospector specific configurations.
+
+- input_type: log
+  #enabled: true
   # Paths that should be crawled and fetched. Glob based paths.
-  # To fetch all ".log" files from a specific level of subdirectories
-  # /var/log/*/*.log can be used.
-  # For each file found under this path, a harvester is started.
-  # Make sure not file is defined twice as this can lead to unexpected behaviour.
   paths:
     - /filebeat-logs/*/*.log
+
+  #encoding: utf-16le-bom
+  document_type: log
     #- /var/log/*.log
     #- c:\programdata\elasticsearch\logs\*
 
