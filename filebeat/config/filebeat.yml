@@ -245,7 +245,7 @@ filebeat.inputs:
   #enabled: true
   
  #----------------------------- Logstash output ---------------------------------
-#output.logstash:
+output.logstash:
   # Boolean flag to enable or disable the output module.
   #enabled: true
 
@@ -386,8 +386,8 @@ filebeat.inputs:
 
 # Logging to rotating files. Set logging.to_files to false to disable logging to
 # files.
-logging.to_files: true
-logging.files:
+#logging.to_files: true
+#logging.files:
   # Configure the path where the logs are written. The default is the logs directory
   # under the home path (the binary location).
   #path: /var/log/filebeat
