@@ -386,8 +386,8 @@ output.logstash:
 
 # Logging to rotating files. Set logging.to_files to false to disable logging to
 # files.
-#logging.to_files: true
-#logging.files:
+logging.to_files: true
+logging.files:
   # Configure the path where the logs are written. The default is the logs directory
   # under the home path (the binary location).
   #path: /var/log/filebeat
